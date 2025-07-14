@@ -1,1 +1,1 @@
-[View demo](https://operatorjen.github.io/js1024.quantumworm/)
+[View demo](https://operatorjen.github.io/js1k.quantumworm/)

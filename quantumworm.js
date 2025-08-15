@@ -1,24 +1,24 @@
 let R=Math.random,
     c=a,C=c.getContext`2d`,
     o=c.cloneNode(),O=o.getContext`2d`,
-    k=new Array(300),d=[],i
+    k=new Array(300),d=[],i,mt=0
 c.width=o.width=innerWidth
 c.height=o.height=innerHeight
-b.style = 'margin: 0'
 c.style = 'filter:saturate(1.5)'
+c.onpointerdown=e=>{ mx=e.clientX; my=e.clientY; mt=180 }
 
 for(i=300;i--;){
   let x=R()*c.width,
       y=R()*c.height
   k[i]={
     i,x,y,vx:0,vy:0,
-    a:R()*c.width*.03,
-    r:c.height*.05+29*R(),
+    a:R()*c.width*.02,
+    r:c.height*.04+24*R(),
     h:140+50*R()
   }
 }
 
-onresize=()=>c.width=o.width=innerWidth,c.height=o.height=innerHeight;
+onresize=()=>c.width=o.width=innerWidth,c.height=o.height=innerHeight
 onresize()
 
 !function f(){
@@ -43,9 +43,17 @@ onresize()
     })
 
     if(!p.i){
-      p.a+=(R()-.5)*.6
-      p.vx=Math.cos(p.a)*7.5
-      p.vy=Math.sin(p.a)*7.5
+      if(mt){
+        let dx=mx-p.x, dy=my-p.y, ang=Math.atan2(dy,dx)
+        p.a += (ang-p.a)*.3
+        p.vx = Math.cos(p.a)*9.5
+        p.vy = Math.sin(p.a)*9.5
+        if((dx*dx+dy*dy)<100) mt=0; else mt--
+      } else {
+        p.a+=(R()-.5)*.6
+        p.vx=Math.cos(p.a)*7.5
+        p.vy=Math.sin(p.a)*7.5
+      }
     } else {
       let t=k[p.i-1],dx=t.x-p.x,dy=t.y-p.y
       p.vx=(p.vx+dx*.1)*.5
